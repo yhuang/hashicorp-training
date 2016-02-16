@@ -1,0 +1,19 @@
+{
+  "service": {
+    "name": "haproxy",
+    "port": 80,
+    "checks": [
+      {
+        "name": "HTTP API on port 80",
+        "http": "http://localhost:80/haproxy?monitor",
+        "interval": "5s",
+        "timeout": "1s"
+      },
+      {
+        "name": "haproxy config",
+        "script": "cat /etc/haproxy/haproxy.cfg",
+        "interval": "10s"
+      }
+    ]
+  }
+}

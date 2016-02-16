@@ -1,0 +1,63 @@
+<html>
+<head>
+  <title>HashiCorp Training</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+  <style type="text/css">
+    body {
+      font-family: "Open Sans", sans-serif;
+      font-size: 14px;
+      margin: 0;
+      padding: 0
+    }
+
+    h1 {
+      padding: 25px;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+      padding: 0 25px;
+    }
+
+    footer {
+      background: #000;
+      bottom: 0;
+      color: #fff;
+      height: 150px;
+      line-height: 150px;
+      position: absolute;
+      width: 100%;
+    }
+
+    footer p {
+      float: left;
+    }
+
+    footer svg {
+      fill: #fff;
+      float: right;
+      width: 75px;
+      height: 75px;
+      margin: 37.5px 25px;
+    }
+  </style>
+</head>
+
+<body>
+  {{ if key "tutorial" }}
+  <h1>The value is {{ key "tutorial" }}</h1>
+  {{ else }}
+  <h1>Go to Consul and enter a value for the key "tutorial"</h1>
+  {{ end }}
+
+  <p>
+    I am <strong>{{ with node }}{{ .Node.Address }}{{ end }}</strong>
+  </p>
+
+  <footer>
+    <p>Last rendered: {{ timestamp }}</p>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" width="512" height="512" viewBox="0 0 512 512" xml:space="preserve"><polygon points="283.2 378.4 360.5 335.9 360.5 44.7 283.2 0 283.2 216.4 185 216.4 185 131.9 107.6 174.3 107.6 465.5 185 510.3 185 293.9 283.2 293.9 "/><polygon points="396.5 65.5 396.5 359.6 283.2 421.8 283.2 510.2 468.2 403.4 468.2 106.8 "/><polygon points="185 0 0 106.8 0 403.4 71.7 444.8 71.7 150.7 185 88.5 "/></svg>
+  </footer>
+</body>
+</html>

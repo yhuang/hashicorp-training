@@ -1,0 +1,7 @@
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+
+# Normally you would check tfvars into source, but to avoid accidentally
+# committing, we are going to ignore that here.
+terraform.tfvars

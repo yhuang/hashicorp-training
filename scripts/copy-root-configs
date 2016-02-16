@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -e
+
+# Go to the parent directory of where this script is
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
+DIR="$( cd -P "$( dirname "$SOURCE" )/.." && pwd )"
+cd $DIR
+
+# Copy all the root terraform files into each tutorial
+for d in *; do
+  if [ ! -d "$d" ]; then
+    continue
+  fi
+
+  if [ "$d" != "keys" ] && [ "$d" != "scripts" ] && [ "$d" != "shared" ] && [ "$d" != "06-infra-ci" ]; then
+    for f in shared/*.tf; do
+      echo "Copying $f into $d"
+      cp "$f" "$d"
+    done
+  fi
+done

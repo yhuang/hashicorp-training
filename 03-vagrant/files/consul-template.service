@@ -1,0 +1,15 @@
+[Unit]
+Description=Consul Template Daemon
+Requires=consul.service
+After=consul.service
+
+[Service]
+ExecStart=/usr/local/bin/start-consul-template.sh
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+RestartSec=10s
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target

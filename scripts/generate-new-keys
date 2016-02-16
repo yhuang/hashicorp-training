@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -e
+
+# Go to the parent directory of where this script is
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
+DIR="$( cd -P "$( dirname "$SOURCE" )/.." && pwd )"
+cd $DIR
+
+# Remove the old keys
+rm -rf keys/
+mkdir keys
+
+# Generate a new keypair
+ssh-keygen \
+  -b 4096 \
+  -f keys/terraform-tutorial \
+  -t rsa \
+  -N "" \
+  -C training@hashicorp.com
+
+# Copy the keypair into our sub-folders
+# Copy all the root terraform files into each tutorial
+for d in *; do
+  if [ ! -d "$d" ]; then
+    continue
+  fi
+
+  if [ "$d" != "keys" ] && [ "$d" != "scripts" ] && [ "$d" != "shared" ] && [ "$d" != "05-atlas" ] && [ "$d" != "06-infra-ci" ]; then
+    rm -rf "$d/keys"
+    mkdir "$d/keys"
+
+    for f in keys/terraform-tutorial*; do
+      echo "Copying $f into $d/keys"
+      cp "$f" "$d/keys/"
+    done
+  fi
+done
+
+rm -rf 05-atlas/terraform/keys
+mkdir 05-atlas/terraform/keys
+cp keys/terraform-tutorial.* 05-atlas/terraform/keys/
+echo "Copying keys/terraform-tutorial.pub into 05-atlas/terraform/keys"
